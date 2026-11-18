@@ -9,11 +9,12 @@ https://merchant-8ggd.onrender.com
 ## Pages
 
 - `index.html` — landing page and seller/customer choice
-- `auth.html` — email/password registration and sign-in
+- `auth.html` — email/password registration, sign-in, password recovery and Google OAuth button
 - `dashboard.html` — seller store, products, stock and order management
 - `stores.html` — public store discovery and search
 - `shop.html` — public storefront, product search, cart and checkout
 - `account.html` — signed-in customer order history
+- `track-order.html` — guest order tracking using order ID and checkout phone
 - `reset-password.html` — password reset destination
 - `js/supabase.js` — public Supabase client configuration
 
@@ -36,9 +37,22 @@ In the Supabase Dashboard, open **Authentication → URL Configuration**:
 
 Email confirmation should remain enabled for account verification. Password recovery redirects to `reset-password.html`.
 
+## Seller tools
+
+The seller studio includes product CRUD, image uploads, stock and visibility controls, low-stock alerts, monthly order-value charts, order detail views, CSV export, profile editing, store logo upload, public/private publishing and three storefront themes (Soft minimal, Dark luxury, Bright & playful).
+
+## Google sign-in setup
+
+The Google button is implemented, but Google OAuth must be enabled before it can be used. In Google Cloud, create a Web OAuth client with this site's origin (`https://merchant-8ggd.onrender.com`) and the Supabase callback URL (`https://jxtblxcxqxuontvtlzkq.supabase.co/auth/v1/callback`). Add the Google Client ID and Client Secret in Supabase → Authentication → Sign In / Providers → Google, then enable the provider. Never put the Google Client Secret in the website code.
+
 ## Current checkout
 
 Checkout records orders and reserves stock. Payment and delivery are arranged directly with the seller (including WhatsApp where a seller added a number). No card or M-Pesa payment is collected by MERCHANT yet.
+
+## Features that still need external setup
+
+- Automated order email notifications need an email delivery provider (for example Resend) and its private API key configured as a server-side secret. No email provider credentials are currently connected.
+- A clean custom domain requires purchasing or owning a domain and adding its DNS records in Render. The current Render subdomain remains active until then.
 
 ## Before a public launch
 
