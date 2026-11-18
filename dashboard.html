@@ -67,19 +67,19 @@ $('ordersBody').onchange=async e=>{const id=e.target.dataset.status;if(!id)retur
 document.querySelectorAll('.theme-choice').forEach(b=>b.onclick=async()=>{const chosen=b.dataset.theme;$('settingsTheme').value=chosen;document.querySelectorAll('.theme-choice').forEach(x=>x.classList.toggle('active',x===b));if(!store)return;const{data,error}=await supabase.from('stores').update({theme:chosen,updated_at:new Date().toISOString()}).eq('id',store.id).select().single();if(error){notice('Theme was not saved: '+error.message);return}store=data;notice('Your '+b.querySelector('b').textContent+' theme is now active.');});
 $('exportOrders').onclick=()=>{const rows=[['Order ID','Customer','Phone','Email','Address','Total KES','Status','Created'],...orders.map(o=>[o.id,o.customer_name,o.customer_phone,o.customer_email||'',o.delivery_address||'',o.total_amount,o.status,o.created_at])];const csv=rows.map(row=>row.map(v=>{let s=String(v??'');if(typeof v==='string'&&/^\s*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='merchant-orders.csv';a.click();URL.revokeObjectURL(url);notice('Orders exported.')};$('saveSellerPrefs').onclick=async()=>{const{data,error}=await supabase.from('profiles').update({notification_preferences:{order_updates:$('sellerOrderUpdates').checked,product_news:$('sellerProductNews').checked},updated_at:new Date().toISOString()}).eq('id',user.id).select().single();if(error)notice(error.message);else{profile=data;notice('Notification preferences saved.')}};$('saveProfile').onclick=async()=>{
  const button=$('saveProfile'),previousPhone=profile.phone||'',newName=$('profileName').value.trim(),newPhone=$('profilePhone').value.trim();
- button.disabled=true;button.textContent='Saving...';
+ button.disabled=true;button.textContent='Saving...';let saveMessage='Account details saved.';
  try{
   const{data,error}=await supabase.from('profiles').update({full_name:newName,phone:newPhone,updated_at:new Date().toISOString()}).eq('id',user.id).select().single();
   if(error)throw error;
   profile=data;
   if(store&&(!store.whatsapp||store.whatsapp===previousPhone)){
    const{data:updatedStore,error:storeError}=await supabase.from('stores').update({whatsapp:newPhone,updated_at:new Date().toISOString()}).eq('id',store.id).select().single();
-   if(storeError)notice('Profile saved, but store contact could not be synced: '+storeError.message);
+   if(storeError)saveMessage='Profile saved, but store contact could not be synced: '+storeError.message;
    else{store=updatedStore;$('settingsWhatsapp').value=newPhone}
   }
   $('hello').textContent='Welcome back'+(profile.full_name?' , '+profile.full_name:'')+'.';
   $('avatarInitial').textContent=(profile.full_name||user.email||'M').trim().charAt(0).toUpperCase();
-  notice('Account details saved.');view('settings');
+  notice(saveMessage);view('settings');
  }catch(error){notice(error.message||'Could not save account details.')}
  finally{button.disabled=false;button.innerHTML='<i data-lucide="save"></i> Save account details';if(window.lucide)window.lucide.createIcons()}
 };
