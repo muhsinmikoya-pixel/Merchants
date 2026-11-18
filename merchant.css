@@ -59,7 +59,7 @@ input,select,textarea,button{max-width:100%}
 
 /* Polished upload controls and image previews */
 input[type="file"]{max-width:100%;padding:10px;border:1px dashed #ffffff35!important;border-radius:11px;background:#ffffff06;color:#d8d5e4;font-size:11px}
-input[type="file"]::file-selector-button{border:0;border-radius:8px;padding:8px 11px;margin-right:10px;background:#ffffff18;color:#fff;font:700 11px inherit;cursor:pointer}
+input[type="file"]::file-selector-button{border:0;border-radius:8px;padding:8px 11px;margin-right:10px;background:#ffffff18;color:#fff;font:inherit;font-size:11px;font-weight:700;cursor:pointer}
 .cover-preview{display:block;width:100%;max-width:240px;height:96px;object-fit:cover;border-radius:12px;background:#17151d;border:1px solid #ffffff22;margin-top:9px}
 .theme-choice{transition:transform .18s,border-color .18s,box-shadow .18s}
 .theme-choice:hover{transform:translateY(-2px);border-color:#ffffff55;box-shadow:0 10px 24px #0003}
