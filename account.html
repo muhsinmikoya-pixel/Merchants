@@ -32,7 +32,7 @@ $('saveAccountProfile').onclick=async()=>{
   }
   const {error}=await supabase.from('profiles').update({full_name:$('profileName').value.trim(),phone:$('profilePhone').value.trim(),avatar_url:avatarUrl||null,updated_at:new Date().toISOString()}).eq('id',session.user.id);
   if(error)throw error;
-  currentAvatar=avatarUrl;chosenAvatar=null;$('avatarInput').value='';$('profileMsg').textContent='Profile saved.';
+  currentAvatar=avatarUrl;if(avatarUrl){$('avatarPreview').src=avatarUrl;$('avatarPreview').hidden=false;$('avatarInitial').hidden=true}chosenAvatar=null;$('avatarInput').value='';$('profileMsg').textContent='Profile saved.';
   $('welcome').textContent='Welcome back'+($('profileName').value.trim()?', '+$('profileName').value.trim():'')+'. Here are your orders.';
  }catch(error){$('profileMsg').textContent=error.message||'Could not save your profile.'}
  finally{button.disabled=false;button.textContent='Save profile'}
