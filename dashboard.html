@@ -110,7 +110,21 @@ $('settingsForm').onsubmit=async e=>{
 };
 
 $('copyLink').onclick=async()=>{try{await navigator.clipboard.writeText($('storeLink').textContent);notice('Store link copied.')}catch(e){notice('Your browser blocked copying. Select and copy the store link instead.')}};$('logout').onclick=async()=>{if(!confirm('Log out of your seller account?'))return;const{error}=await supabase.auth.signOut();if(error){notice(error.message);return}location.replace('index.html')};$('switchAccount').onclick=async()=>{if(!confirm('Switch account? You will be signed out first.'))return;const{error}=await supabase.auth.signOut();if(error){notice(error.message);return}location.replace('index.html')};
-$('saveAvatar').onclick=async()=>{if(!selectedAvatar){notice('Choose a picture first.');return}if(!['image/jpeg','image/png','image/webp'].includes(selectedAvatar.type)||selectedAvatar.size>8*1024*1024){notice('Choose a JPG, PNG or WEBP image under 8 MB.');return}const ext=selectedAvatar.type.split('/')[1].replace('jpeg','jpg');const path=user.id+'/avatar-'+crypto.randomUUID()+'.'+ext;const{error}=await supabase.storage.from('merchant-avatars').upload(path,selectedAvatar,{contentType:selectedAvatar.type,upsert:false});if(error){notice(error.message);return}const avatar_url=supabase.storage.from('merchant-avatars').getPublicUrl(path).data.publicUrl;const{data,error:saveError}=await supabase.from('profiles').update({avatar_url,updated_at:new Date().toISOString()}).eq('id',user.id).select().single();if(saveError){notice(saveError.message);return}profile=data;$('avatarPreview').src=avatar_url;$('avatarPreview').classList.remove('hidden');$('avatarInitial').classList.add('hidden');selectedAvatar=null;$('avatarInput').value='';notice('Profile picture saved.')};
+$('saveAvatar').onclick=async()=>{
+ if(!selectedAvatar){notice('Choose a picture first.');return}
+ if(!['image/jpeg','image/png','image/webp'].includes(selectedAvatar.type)||selectedAvatar.size>8*1024*1024){notice('Choose a JPG, PNG or WEBP image under 8 MB.');return}
+ const button=$('saveAvatar');button.disabled=true;button.textContent='Saving picture...';
+ try{
+  const ext=selectedAvatar.type.split('/')[1].replace('jpeg','jpg'),path=user.id+'/avatar-'+crypto.randomUUID()+'.'+ext;
+  const{error}=await supabase.storage.from('merchant-avatars').upload(path,selectedAvatar,{contentType:selectedAvatar.type,upsert:false});
+  if(error)throw error;
+  const avatar_url=supabase.storage.from('merchant-avatars').getPublicUrl(path).data.publicUrl;
+  const{data,error:saveError}=await supabase.from('profiles').update({avatar_url,updated_at:new Date().toISOString()}).eq('id',user.id).select().single();
+  if(saveError)throw saveError;
+  profile=data;$('avatarPreview').src=avatar_url;$('avatarPreview').classList.remove('hidden');$('avatarInitial').classList.add('hidden');$('topAvatar').src=avatar_url;$('topAvatar').classList.remove('hidden');selectedAvatar=null;$('avatarInput').value='';notice('Profile picture saved.');
+ }catch(error){notice(error.message||'Could not save your picture.')}
+ finally{button.disabled=false;button.innerHTML='Save picture'}
+};
 $('avatarInput').onchange=e=>{selectedAvatar=e.target.files[0]||null;if(selectedAvatar){$('avatarPreview').src=URL.createObjectURL(selectedAvatar);$('avatarPreview').classList.remove('hidden');$('avatarInitial').classList.add('hidden')}};
 $('switchAccountSettings').onclick=()=>$('switchAccount').click();$('logoutSettings').onclick=()=>$('logout').click();
 await boot();if(window.lucide)window.lucide.createIcons();
