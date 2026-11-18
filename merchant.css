@@ -25,3 +25,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .side{background:#1c1922!important;border-color:var(--merchant-line)!important}
 .side button.active,.side button:hover{background:#ffb17b18!important;color:var(--merchant-text)!important}
 .notice,.msg{border-color:var(--merchant-line)}
+
+/* MERCHANT shared responsive design system */
+:root{color-scheme:dark}
+button,a,input,select,textarea{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #b69cff;outline-offset:3px}
+.brand{display:flex;align-items:center;gap:10px}.brand-mark{width:32px;height:32px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(135deg,#b59cff,#74baff);color:#171522}.side button,.side a{min-width:0;white-space:nowrap}.side button svg,.side a svg{width:18px;height:18px;flex:none}.side button span{overflow:hidden;text-overflow:ellipsis}
+.card h3{display:flex;align-items:center;gap:9px}.card h3 svg{width:18px;height:18px;color:#b8a4ff}
+.settings-heading{margin:0 0 18px}.settings-heading h2{font:800 25px Manrope;margin:0 0 5px}
+.profile-card{display:flex;align-items:center;gap:18px}.profile-avatar-wrap{width:92px;height:92px;border-radius:50%;background:#28283b;overflow:hidden;display:grid;place-items:center;flex:none;border:2px solid #b6a1ff}.profile-avatar{width:100%;height:100%;object-fit:cover}.profile-avatar-initial{font:800 32px Manrope;color:#c8b8ff}.profile-copy{min-width:0}.profile-copy h3{margin:0 0 5px}.profile-copy p{margin:0 0 12px}.file-button{display:inline-flex;align-items:center;gap:8px;margin-right:8px}.file-button svg,.btn svg{width:16px;height:16px;vertical-align:middle}.settings-actions{display:flex;gap:10px;flex-wrap:wrap}.setting-toggle{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 0;border-bottom:1px solid #ffffff12}.setting-toggle span{display:grid;gap:4px}.setting-toggle small{color:#9b9aaf;font-size:11px}
+.theme-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+.theme-choice{min-width:0;display:grid;grid-template-rows:76px auto auto;gap:6px;overflow:hidden}.theme-choice b,.theme-choice small{overflow-wrap:anywhere}.theme-swatch{height:76px;width:100%;margin:0;background:linear-gradient(135deg,#fff8ef,#ffad63)!important}
+.theme-choice[data-theme=sunset] .theme-swatch{background:linear-gradient(135deg,#fffaf4 0%,#ffe0c2 48%,#f58b42 100%)!important}
+.theme-choice[data-theme=galaxy] .theme-swatch{background:radial-gradient(1px 1px at 20% 30%,#fff 99%,transparent),radial-gradient(2px 2px at 70% 22%,#fff 99%,transparent),radial-gradient(1px 1px at 48% 76%,#fff 99%,transparent),radial-gradient(2px 2px at 84% 68%,#fff 99%,transparent),linear-gradient(135deg,#050611,#14172d 60%,#34245c)!important}
+.theme-choice[data-theme=luxury] .theme-swatch{background:linear-gradient(135deg,#050505,#27231a 65%,#c4a45d)!important}
+.theme-choice[data-theme=emerald] .theme-swatch{background:linear-gradient(135deg,#071f19,#176b4c 65%,#8ad1a5)!important}
+.theme-choice[data-theme=minimal] .theme-swatch{background:linear-gradient(135deg,#fff,#dedbd5)!important}
+.theme-choice[data-theme=colorful] .theme-swatch{background:linear-gradient(135deg,#ffb7c9,#9f8bff,#83d7d0)!important}
+@media(max-width:850px){.side{gap:3px}.side button,.side a{padding:10px 11px}.side .bottom{display:flex;gap:3px}.side .bottom button{width:auto}.main{min-width:0}}
+@media(max-width:620px){.theme-options{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-card{align-items:flex-start}.settings-actions .btn{flex:1}.side{position:sticky}.side button span{font-size:10px}}
+@media(max-width:380px){.side{gap:1px;padding:7px}.side button,.side a{padding:9px 8px}.side button span{display:none}.side button svg{width:19px;height:19px}.side .bottom button span{display:none}}
