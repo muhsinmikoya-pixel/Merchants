@@ -1,0 +1,27 @@
+/* MERCHANT shared visual system — platform pages */
+:root{
+  color-scheme:dark;
+  --merchant-bg:#17151d;
+  --merchant-panel:#211d27;
+  --merchant-text:#fffaf5;
+  --merchant-muted:#bcb0b1;
+  --merchant-line:#ffffff1b;
+  --merchant-accent:#ffb17b;
+  --merchant-accent-2:#e987a1;
+}
+html{scroll-behavior:smooth}
+body{background:var(--merchant-bg)!important;color:var(--merchant-text)!important}
+a{color:var(--merchant-accent)}
+button,input,textarea,select{font:inherit}
+button{transition:background .18s,border-color .18s,transform .18s}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--merchant-accent);outline-offset:3px}
+.card,.panel,.stat,.step,.theme,.modal,.result{background-color:var(--merchant-panel)!important;border-color:var(--merchant-line)!important}
+.field input,.field textarea,.field select,input,textarea,select{border-color:var(--merchant-line)!important}
+.field input:focus,.field textarea:focus,.field select:focus,input:focus,textarea:focus,select:focus{border-color:var(--merchant-accent)!important}
+.btn,.submit,.pill{background:linear-gradient(110deg,var(--merchant-accent),var(--merchant-accent-2))!important;color:#2b1c22!important;border:0!important}
+.btn.secondary,.secondary{background:#ffffff0c!important;color:var(--merchant-text)!important;border:1px solid var(--merchant-line)!important}
+.tabs button.active{background:linear-gradient(110deg,var(--merchant-accent),var(--merchant-accent-2))!important;color:#2b1c22!important}
+.muted,.sub,.intro{color:var(--merchant-muted)}
+.side{background:#1c1922!important;border-color:var(--merchant-line)!important}
+.side button.active,.side button:hover{background:#ffb17b18!important;color:var(--merchant-text)!important}
+.notice,.msg{border-color:var(--merchant-line)}
